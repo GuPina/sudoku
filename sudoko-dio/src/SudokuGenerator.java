@@ -8,10 +8,10 @@ public class SudokuGenerator {
         this.board = board;
     }
 
-    public void generate() {
+    public void generate(int removeCount) {
         SudokuSolver solver = new SudokuSolver(board);
         solver.solve(); // Cria um tabuleiro solucionado
-        removeNumbers(40); // Remove números para criar um desafio
+        removeNumbers(removeCount); // Remove números para criar um desafio
     }
 
     private void removeNumbers(int count) {
