@@ -119,12 +119,45 @@ public class Sudoku {
         return true;
     }
 
+    public boolean isBoardFull() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == 0) return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isSudokuValid() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int num = board[i][j];
+                if (num == 0) continue;
+                board[i][j] = 0;
+                if (!isValidMove(i, j, num)) {
+                    board[i][j] = num;
+                    return false;
+                }
+                board[i][j] = num;
+            }
+        }
+        return true;
+    }
+
+    public boolean isGameFinished() {
+        return isBoardFull() && isSudokuValid();
+    }
+
     public static void main(String[] args) {
         Sudoku game = new Sudoku(args);
         Scanner scanner = new Scanner(System.in);
         
         while (true) {
             game.printBoard();
+            if (game.isGameFinished()) {
+                System.out.println("Parabéns! Você completou o Sudoku corretamente!");
+                break;
+            }
             System.out.println("Digite a linha, coluna e valor (ex: 2 3 5) ou -1 para sair:");
             int row = scanner.nextInt();
             if (row == -1) break;
